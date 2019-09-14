@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <oag_orderreview>
+            <email>
+                <sender>general</sender>
+                <email_template>oag_order_review</email_template>
+            </email>
+        </oag_orderreview>
+    </default>
+</config>

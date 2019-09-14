@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="oag_order_review">
+        <job instance="OAG\OrderReview\Model\Cron" method="sendOrderReviewEmails" name="oag_order_review_cron">
+            <schedule>* * * * *</schedule>
+        </job>
+    </group>
+</config>
+
