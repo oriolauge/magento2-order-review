@@ -32,4 +32,16 @@ class Data extends AbstractHelper
     {
         return $this->_logger;
     }
+
+    /**
+     * Retrieve url
+     *
+     * @param   string $route
+     * @param   array $params
+     * @return  string
+     */
+    public function getUrl($route, $params = [])
+    {
+        return $this->_getUrl($route, $params);
+    }
 }

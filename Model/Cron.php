@@ -50,7 +50,7 @@ class Cron
 
     /**
      * Function that send an email to order user to give the link to adds his reviews
-     * @todo: add some configurable values to stop cronjob, define senders emails, etc
+     * @todo: add some configurable values to stop cronjob
      * @return OAG\OrderReview\Model\Cron
      */
     public function sendOrderReviewEmails()
@@ -61,8 +61,12 @@ class Cron
             $template = $this->helper->getEmailConfig('email_template', $order->getStoreId());
             $sender = $this->helper->getEmailConfig('sender', $order->getStoreId());
 
+            $this->helper->getLogger()->info($order->getIncrementId());
+            $this->helper->getLogger()->info( $this->helper->getUrl('orderreviews', array($order->getIncrementId())));
+
             $vars = array(
                 'name' => $order->getCustomerFirstname(),
+                'link' => $this->helper->getUrl('orderreviews', array($order->getIncrementId()))
             );
 
             $transport = $this->transportBuilder
@@ -72,7 +76,7 @@ class Cron
                     'store' => $order->getStoreId()
                 ))->setTemplateVars($vars)
                 ->setFromByScope($sender)
-                ->addTo('wbb59ixw1w@m07.ovh')
+                ->addTo($order->getCustomerEmail())
                 ->getTransport();
 
             try {
@@ -98,6 +102,7 @@ class Cron
         return $this->orderCollectionFactory
             ->create()
             ->addAttributeToSelect('customer_email')
+            ->addAttributeToSelect('customer_firstname')
             ->addAttributeToSelect('store_id');
     }
 }
