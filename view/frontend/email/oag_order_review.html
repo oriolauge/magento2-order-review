@@ -1,7 +1,7 @@
 <!--@subject {{trans "Hi! Do you have a few minutes to give us your opinion about our service?}} @-->
 <!--@vars {
 "var name":"",
-"var message_2":"Custom Message 2"
+"var add_review_link":""
 } @-->
 
 {{template config_path="design/email/header_template"}}
@@ -14,8 +14,8 @@
     </tr>
     <tr class="content" style="text-align:center; padding:10px; ">
          <td style="padding:10px;">
-            <p style="padding-bottom:10px; ">{{trans "We are working hard to improve our service and your opinion is very important for us. Do you like to give us your feedback about your experience in our website? Please click in the next link below:"}}</p>
-            <span style="padding:10px; background-color:#1e4d63; color:#fff; ">{{trans "Go to website"}}</span>
+            <p style="padding-bottom:10px;">{{trans "We are working hard to improve our service and your opinion is very important for us. Do you like to give us your feedback about your experience in our website? Please click in the next link below:"}}</p>
+            <a href="{{var add_review_link}}"><span style="padding:10px; background-color:#1e4d63; color:#fff; ">{{trans "Go to website"}}</span></a>
         </td>
     </tr>
 </table>

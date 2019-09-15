@@ -35,6 +35,7 @@ class Cron
      * @param \OAG\OrderReview\Helper                                    $helper
      * @param \Magento\Framework\Translate\Inline\StateInterface         $inlineTranslation
      * @param \Magento\Framework\Mail\Template\TransportBuilder          $transportBuilder
+     * @param \Magento\Framework\Encryption\EncryptorInterface           $encryptor
      */
     public function __construct(
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
@@ -60,13 +61,14 @@ class Cron
 
             $template = $this->helper->getEmailConfig('email_template', $order->getStoreId());
             $sender = $this->helper->getEmailConfig('sender', $order->getStoreId());
-
-            $this->helper->getLogger()->info($order->getIncrementId());
-            $this->helper->getLogger()->info( $this->helper->getUrl('orderreviews', array($order->getIncrementId())));
+            $token = $this->helper->getToken($order->getIncrementId());
 
             $vars = array(
                 'name' => $order->getCustomerFirstname(),
-                'link' => $this->helper->getUrl('orderreviews', array($order->getIncrementId()))
+                'add_review_link' => $this->helper->getUrl('reviews/order/addreview', array(
+                    'increment_id' => $order->getIncrementId(),
+                    'token' => $token
+                ))
             );
 
             $transport = $this->transportBuilder
@@ -103,6 +105,7 @@ class Cron
             ->create()
             ->addAttributeToSelect('customer_email')
             ->addAttributeToSelect('customer_firstname')
+            ->addAttributeToSelect('increment_id')
             ->addAttributeToSelect('store_id');
     }
 }
