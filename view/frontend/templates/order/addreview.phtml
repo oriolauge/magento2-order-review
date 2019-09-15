@@ -13,8 +13,11 @@
 <div class="add-review-text">
     <p><?php echo __('Your opinion is very important for us! Could you complete this form to tell us your opinion about our service?'); ?></p>
 </div>
+<?php echo $block->getVoucherNumber(); ?>
 <form action="<?php echo $block->getAddReviewFormAction(); ?>" method="post">
     <?php echo $block->getBlockHtml('formkey'); ?>
+    <input type="hidden" name="token" value="<?php echo $block->getToken(); ?>">
+    <input type="hidden" name="increment_id" value="<?php echo $block->getIncrementId(); ?>">
     <div class="field">
         <div class="left">
             <label class="label" for="shipping"><?php echo __('Delivery:') ?></label>

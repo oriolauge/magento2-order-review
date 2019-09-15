@@ -35,12 +35,20 @@ class Addreview extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $token = $this->getRequest()->getParam('token');
-        $incrementid = $this->getRequest()->getParam('increment_id');
-        if ($token != $this->helper->getToken($incrementid)) {
-            //@todo: redirect to 404 page
-            die("Error in url, token incorrect");
+        $incrementId = $this->getRequest()->getParam('increment_id');
+        if ($token != $this->helper->getToken($incrementId)) {
+            $norouteUrl = $this->helper->getUrl('noroute');
+            $this->getResponse()->setRedirect($norouteUrl);
+            return;
         }
-        return $this->pageFactory->create();
+
+        $this->_view->loadLayout();
+        $block = $this->_view->getLayout()->getBlock('orderreview_order_addreview');
+        if($block) {
+            $block->setToken($token);
+            $block->setIncrementId($incrementId);
+        }
+        $this->_view->renderLayout();
     }
 }
 
