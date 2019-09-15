@@ -38,10 +38,9 @@ class Addreview extends \Magento\Framework\App\Action\Action
         $incrementid = $this->getRequest()->getParam('increment_id');
         if ($token != $this->helper->getToken($incrementid)) {
             //@todo: redirect to 404 page
-            die("Error");
+            die("Error in url, token incorrect");
         }
-        echo "Hello World";
-        exit;
+        return $this->pageFactory->create();
     }
 }
 
