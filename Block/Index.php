@@ -22,6 +22,10 @@ class Index extends \Magento\Framework\View\Element\Template
         parent::__construct($context);
     }
 
+    /**
+     * Get all orders reviews to show
+     * @return \OAG\OrderReview\Model\ResourceModel\OrderReview\Collection;
+     */
     public function getOrderReviews()
     {
         return $this->orderReviewFactory->create()->getCollection();
