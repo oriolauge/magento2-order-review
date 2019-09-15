@@ -1,6 +1,68 @@
-<h2>INDEX PAGE!</h2>
-<?php $orderReviewsCollection = $block->getOrderReviews();
-    foreach($orderReviewsCollection as $orderReview){
-        echo $orderReview->getComment();
+<!-- todo: move this to header -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+    .fa-star.checked { color: #ffdc0f; }
+    .review { margin: 1.5em 0; border: 1px solid #e8e8e8; padding: 1em; border-radius: 15px; }
+    .left, .right { display: inline-block; width: 100%; }
+    .review > div { margin: 0.5em; }
+    @media (min-width: 768px) {
+        .left, .right {
+            width: 50%;
+        }
     }
-?>
+</style>
+<h1><?php echo __('Customer reviews'); ?></h1>
+<?php $orderReviewsCollection = $block->getOrderReviews(); ?>
+<?php if($orderReviewsCollection->getSize() > 0): ?>
+<div class="review-text">
+    <p><?php echo __('A better service is possible because our clients give us his opinion. Check his opinions to know what are thinking our clients for about us:'); ?></p>
+</div>
+<?php foreach($orderReviewsCollection as $orderReview): ?>
+    <div class="review">
+        <div>
+            <div class="left">
+                <?php echo __('Delivery:'); ?>
+            </div><!--
+            --><div class="right">
+                <?php for ($i=1; $i <= 5; $i++): ?>
+                    <span class="fa fa-star <?php echo $orderReview->getShipping() >= $i ? 'checked' : '' ?>"></span>
+                <?php endfor; ?>
+            </div>
+        </div>
+        <div>
+            <div class="left">
+                <?php echo __('Product:'); ?>
+            </div><!--
+            --><div class="right">
+                <?php for ($i=1; $i <= 5; $i++): ?>
+                    <span class="fa fa-star <?php echo $orderReview->getProduct() >= $i ? 'checked' : '' ?>"></span>
+                <?php endfor; ?>
+            </div>
+        </div>
+        <div>
+            <div class="left">
+                <?php echo __('Customer support:'); ?>
+            </div><!--
+            --><div class="right">
+                <?php for ($i=1; $i <= 5; $i++): ?>
+                    <span class="fa fa-star <?php echo $orderReview->getCustomerSupport() >= $i ? 'checked' : '' ?>"></span>
+                <?php endfor; ?>
+            </div>
+        </div>
+        <?php if ($orderReview->getComment()): ?>
+            <div>
+                <div class="left">
+                    <?php echo __('Comment:'); ?>
+                </div><!--
+                --><div class="right">
+                     <?php echo $orderReview->getComment(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endforeach; ?>
+<?php else: ?>
+<div class="review-text">
+    <p><?php echo __('Sorry, we can\'t show any review.'); ?></p>
+</div>
+<?php endif; ?>
