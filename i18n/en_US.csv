@@ -23,3 +23,4 @@
 "Shipping value has a wrong value. Please enter a numeric valid value","Shipping value has a wrong value. Please enter a numeric valid value"
 "Product value has a wrong value. Please enter a numeric valid value.","Product value has a wrong value. Please enter a numeric valid value."
 "Customer support value has a wrong value. Please enter a numeric valid value.","Customer support value has a wrong value. Please enter a numeric valid value."
+"Order does not exists","Order does not exists"

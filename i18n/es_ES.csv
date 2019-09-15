@@ -23,3 +23,4 @@
 "Shipping value has a wrong value. Please enter a numeric valid value","El valor Envío tiene un valor incorrecto. Por favor, introduce un valor numérico válido"
 "Product value has a wrong value. Please enter a numeric valid value.","El valor Producto tiene un valor incorrecto. Por favor, introduce un valor numérico válido"
 "Customer support value has a wrong value. Please enter a numeric valid value.","El valor Atención al cliente tiene un valor incorrecto. Por favor, introduce un valor numérico válido"
+"Order does not exists","Pedido no encontrado"

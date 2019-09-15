@@ -33,6 +33,11 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
     protected $modelOrderReview;
 
     /**
+     * Holds Order model object class
+     */
+    protected $modelOrder;
+
+    /**
      * @param Context $context
      * @param ConfigInterface $contactsConfig
      * @param LoggerInterface $logger
@@ -42,7 +47,8 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
         ConfigInterface $contactsConfig,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \OAG\OrderReview\Helper\Data $helper,
-        OrderReview $modelOrderReview
+        OrderReview $modelOrderReview,
+        \Magento\Sales\Model\Order $order
 
     ) {
         parent::__construct($context, $contactsConfig);
@@ -50,6 +56,7 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
         $this->formKeyValidator = $formKeyValidator;
         $this->helper = $helper;
         $this->modelOrderReview = $modelOrderReview;
+        $this->modelOrder = $order;
     }
 
     /**
@@ -78,13 +85,26 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
         }
 
         try {
-            $this->validatedParams();
+            $params = $this->validatedParams();
+            $this->modelOrder->loadByIncrementId($incrementId);
+            if (!$this->modelOrder->getId()) {
+                throw new \Exception(__("Order does not exists"), 1);   
+            }
+            $this->modelOrderReview->setOrderId($this->modelOrder->getId());
+            $this->modelOrderReview->setShipping((int) $params['shipping']);
+            $this->modelOrderReview->setProduct((int) $params['product']);
+            $this->modelOrderReview->setCustomerSupport((int) $params['customsupport']);
+            if ($params['comment']) {
+                $comment = filter_var($params['comment'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_ENCODE_HIGH | FILTER_FLAG_ENCODE_AMP);
+                $this->modelOrderReview->setComment($comment);
+            }
+            $this->modelOrderReview->save();
             $this->messageManager->addSuccessMessage(
                 __('Thanks for give us your opinion! :)')
             );
-        } catch (LocalizedException $e) {
+        } catch (\LocalizedException $e) {
             $this->messageManager->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->messageManager->addError(__('An unspecified error occurred. Please contact us for assistance.'));
         }
 
@@ -104,7 +124,7 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
         $request = $this->getRequest();
 
         if(!$this->formKeyValidator->validate($request)) {
-            throw new Exception(__('Invalid form key.'), 1);
+            throw new \Exception(__('Invalid form key.'), 1);
         }
         if (trim($request->getParam('shipping')) === '') {
             throw new LocalizedException(__('Shipping value is required. Please enter the value and try again.'));
