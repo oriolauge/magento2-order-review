@@ -1,4 +1,65 @@
+<!-- todo: move css to .css file -->
+<style type="text/css">
+    .left, .right { display: inline-block; width: 100%; }
+    .field, .add-review-text { margin-bottom: 1em; }
+    @media (min-width: 768px) {
+        .left, .right {
+            width: 50%;
+        }
+    }
+</style>
+
 <h1><?php echo __('Give us your feedback'); ?></h1>
-<div>
+<div class="add-review-text">
     <p><?php echo __('Your opinion is very important for us! Could you complete this form to tell us your opinion about our service?'); ?></p>
+</div>
+<div class="field">
+    <div class="left">
+        <label class="label" for="shipping"><?php echo __('Delivery:') ?></label>
+    </div><!--
+    --><div class="right">
+        <select name="shipping" id="shipping">
+            <option value="5"><?php echo __('Very satisfied'); ?></option>
+            <option value="4"><?php echo __('Satisfied'); ?></option>
+            <option value="3"><?php echo __('Neutral'); ?></option>
+            <option value="2"><?php echo __('Unsatisfied'); ?></option>
+            <option value="1"><?php echo __('Very unsatisfied'); ?></option>
+        </select>
+    </div>
+</div>
+<div class="field">
+    <div class="left">
+        <label class="label" for="product"><?php echo __('Product:') ?></label>
+    </div><!--
+    --><div class="right">
+        <select name="product" id="product">
+            <option value="5"><?php echo __('Very satisfied'); ?></option>
+            <option value="4"><?php echo __('Satisfied'); ?></option>
+            <option value="3"><?php echo __('Neutral'); ?></option>
+            <option value="2"><?php echo __('Unsatisfied'); ?></option>
+            <option value="1"><?php echo __('Very unsatisfied'); ?></option>
+        </select>
+    </div>
+</div>
+<div class="field">
+    <div class="left">
+        <label class="label" for="customsupport"><?php echo __('Customer support:') ?></label>
+    </div><!--
+    --><div class="right">
+        <select name="customsupport" id="customsupport">
+            <option value="5"><?php echo __('Very satisfied'); ?></option>
+            <option value="4"><?php echo __('Satisfied'); ?></option>
+            <option value="3"><?php echo __('Neutral'); ?></option>
+            <option value="2"><?php echo __('Unsatisfied'); ?></option>
+            <option value="1"><?php echo __('Very unsatisfied'); ?></option>
+        </select>
+    </div>
+</div>
+<div class="field">
+    <div class="left">
+        <label class="label" for="comment"><?php echo __('Comment:') ?></label>
+    </div><!--
+    --><div class="right">
+        <textarea type="textarea" name="comment" id="comment"></textarea>
+    </div>
 </div>
