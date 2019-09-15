@@ -20,3 +20,6 @@
 "Customer support value is required. Please enter the value and try again.","El campo Atención al cliente es obligatorio. Por favor, rellene este valor y vuelva a intentarlo."
 "Invalid form key.","Clave de formulario inválida."
 "Thanks for give us your opinion! :)","¡Gracias por compartir tu opinión con nosotros! :)"
+"Shipping value has a wrong value. Please enter a numeric valid value","El valor Envío tiene un valor incorrecto. Por favor, introduce un valor numérico válido"
+"Product value has a wrong value. Please enter a numeric valid value.","El valor Producto tiene un valor incorrecto. Por favor, introduce un valor numérico válido"
+"Customer support value has a wrong value. Please enter a numeric valid value.","El valor Atención al cliente tiene un valor incorrecto. Por favor, introduce un valor numérico válido"

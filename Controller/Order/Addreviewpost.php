@@ -1,6 +1,7 @@
 <?php
 namespace OAG\OrderReview\Controller\Order;
 
+use OAG\OrderReview\Model\OrderReview;
 use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
 use Magento\Contact\Model\ConfigInterface;
 use Magento\Framework\App\Action\Context;
@@ -26,6 +27,12 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
     protected $helper;
 
     /**
+     * Holds Order Review model object class
+     * @var OAG\OrderReview\Model\OrderReview
+     */
+    protected $modelOrderReview;
+
+    /**
      * @param Context $context
      * @param ConfigInterface $contactsConfig
      * @param LoggerInterface $logger
@@ -34,13 +41,15 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
         Context $context,
         ConfigInterface $contactsConfig,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-        \OAG\OrderReview\Helper\Data $helper
+        \OAG\OrderReview\Helper\Data $helper,
+        OrderReview $modelOrderReview
 
     ) {
         parent::__construct($context, $contactsConfig);
         $this->context = $context;
         $this->formKeyValidator = $formKeyValidator;
         $this->helper = $helper;
+        $this->modelOrderReview = $modelOrderReview;
     }
 
     /**
@@ -99,12 +108,18 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
         }
         if (trim($request->getParam('shipping')) === '') {
             throw new LocalizedException(__('Shipping value is required. Please enter the value and try again.'));
+        } else if (!is_numeric($request->getParam('shipping')) || $request->getParam('shipping') < 1 || $request->getParam('shipping') > 5) {
+            throw new LocalizedException(__('Shipping value has a wrong value. Please enter a numeric valid value.'));
         }
         if (trim($request->getParam('product')) === '') {
             throw new LocalizedException(__('Product value is required. Please enter the value and try again.'));
+        } else if (!is_numeric($request->getParam('product')) || $request->getParam('product') < 1 || $request->getParam('product') > 5) {
+            throw new LocalizedException(__('Product value has a wrong value. Please enter a numeric valid value.'));
         }
         if (trim($request->getParam('customsupport')) === '') {
             throw new LocalizedException(__('Customer support value is required. Please enter the value and try again.'));
+        } else if (!is_numeric($request->getParam('customsupport')) || $request->getParam('customsupport') < 1 || $request->getParam('customsupport') > 5) {
+            throw new LocalizedException(__('Customer support value has a wrong value. Please enter a numeric valid value.'));
         }
 
         return $request->getParams();
