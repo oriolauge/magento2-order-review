@@ -95,7 +95,7 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
             $this->modelOrderReview->setProduct((int) $params['product']);
             $this->modelOrderReview->setCustomerSupport((int) $params['customsupport']);
             if ($params['comment']) {
-                $comment = filter_var($params['comment'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_ENCODE_HIGH | FILTER_FLAG_ENCODE_AMP);
+                $comment = htmlentities($params['comment'], ENT_QUOTES);
                 $this->modelOrderReview->setComment($comment);
             }
             $this->modelOrderReview->save();

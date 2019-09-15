@@ -1,6 +1,6 @@
 <?php
 
-namespace OAG\OrderReview\Model\ResourceModel\News;
+namespace OAG\OrderReview\Model\ResourceModel\OrderReview;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 

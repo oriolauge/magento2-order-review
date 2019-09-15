@@ -1,1 +1,6 @@
 <h2>INDEX PAGE!</h2>
+<?php $orderReviewsCollection = $block->getOrderReviews();
+    foreach($orderReviewsCollection as $orderReview){
+        echo $orderReview->getComment();
+    }
+?>
