@@ -29,7 +29,7 @@
                         <field id="enable_cronjob">1</field>
                     </depends>
                 </field>
-                <field id="order_waiting_days" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="order_waiting_days" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Days to wait after the order was created to send the order review email</label>
                     <validate>validate-zero-or-greater validate-digits</validate>
                     <depends>

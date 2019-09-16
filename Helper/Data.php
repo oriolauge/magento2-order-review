@@ -41,11 +41,11 @@ class Data extends AbstractHelper
      * @param  int    $storeId
      * @return mixted
      */
-    public function getEmailConfig($configName, $storeId)
+    public function getEmailConfig($configName, $storeId = null, $scopeType = \Magento\Store\Model\ScopeInterface::SCOPE_STORE)
     {
         return $this->scopeConfig->getValue(
             self::EMAIL_CONFIG_PATH . $configName,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $scopeType,
             $storeId
         );
     }

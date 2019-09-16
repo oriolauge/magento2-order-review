@@ -30,6 +30,12 @@ class Cron
     protected $transportBuilder;
 
     /**
+     * Holds datetime object class
+     * @var \Magento\Framework\Stdlib\DateTime\DateTime
+     */
+    protected $dateTime;
+
+    /**
      * construct function class
      * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
      * @param \OAG\OrderReview\Helper                                    $helper
@@ -40,6 +46,7 @@ class Cron
     public function __construct(
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
         \OAG\OrderReview\Helper\Data $helper,
+        \Magento\Framework\Stdlib\DateTime\DateTime $dateTime,
         \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
         \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
     ) {
@@ -47,6 +54,7 @@ class Cron
         $this->helper = $helper;
         $this->inlineTranslation = $inlineTranslation;
         $this->transportBuilder = $transportBuilder;
+        $this->dateTime = $dateTime;
     }
 
     /**
@@ -55,10 +63,12 @@ class Cron
      */
     public function sendOrderReviewEmails()
     {
+            $this->helper->getLogger()->info("start");
         foreach ($this->getOrdersToSendEmail() as $order) {
             if (!$this->helper->getEmailConfig('enable_cronjob', $order->getStoreId())) {
                 continue;
             }
+            $this->helper->getLogger()->info($order->getIncrementId());
             $this->inlineTranslation->suspend();
 
             $template = $this->helper->getEmailConfig('email_template', $order->getStoreId());
@@ -103,12 +113,20 @@ class Cron
      */
     protected function getOrdersToSendEmail()
     {
-        return $this->orderCollectionFactory
+        $orderCollection = $this->orderCollectionFactory
             ->create()
             ->addAttributeToSelect('customer_email')
             ->addAttributeToSelect('customer_firstname')
             ->addAttributeToSelect('increment_id')
             ->addAttributeToSelect('store_id');
+
+        $daysToWait = (int) $this->helper->getEmailConfig('order_waiting_days', null, \Magento\Framework\App\Config\ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
+        if ($daysToWait > 0) {
+            $dateTo = $this->dateTime->date(null, '- ' . $daysToWait . ' days');
+            $orderCollection->addAttributeToFilter('created_at', array('to'=>$dateTo));
+        }
+        return $orderCollection;
+
     }
 }
 
