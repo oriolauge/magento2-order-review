@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <referenceContainer name="content">
-        <block class="OAG\OrderReview\Block\Order" name="orderreview_order_addreview" template="OAG_OrderReview::order/addreview.phtml" />
-    </referenceContainer>
+    <head>
+        <css src="OAG_OrderReview::css/oag-order-reviews.css" />
+        <css src="OAG_OrderReview::css/oag-order-reviews-l.css" media="screen and (min-width: 768px)"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="OAG\OrderReview\Block\Order" name="orderreview_order_addreview" template="OAG_OrderReview::order/addreview.phtml" />
+        </referenceContainer>
+    </body>
 </page>

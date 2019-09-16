@@ -1,0 +1,5 @@
+.fa-star.checked { color: #ffdc0f; }
+.review { margin: 1.5em 0; border: 1px solid #e8e8e8; padding: 1em; border-radius: 15px; }
+.left, .right { display: inline-block; width: 100%; }
+.field, .add-review-text { margin-bottom: 1em; }
+.review > div { margin: 0.5em; }

@@ -1,16 +1,3 @@
-<!-- todo: move this to header -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style type="text/css">
-    .fa-star.checked { color: #ffdc0f; }
-    .review { margin: 1.5em 0; border: 1px solid #e8e8e8; padding: 1em; border-radius: 15px; }
-    .left, .right { display: inline-block; width: 100%; }
-    .review > div { margin: 0.5em; }
-    @media (min-width: 768px) {
-        .left, .right {
-            width: 50%;
-        }
-    }
-</style>
 <h1><?php echo __('Customer reviews'); ?></h1>
 <?php $orderReviewsCollection = $block->getOrderReviews(); ?>
 <?php if($orderReviewsCollection->getSize() > 0): ?>
