@@ -77,13 +77,11 @@ class InstallSchema implements InstallSchemaInterface
                 \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
             )->addIndex(
                 $installer->getIdxName('oag_order_review', ['order_id']),
-                ['order_id']
+                ['order_id'],
+                ['type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE]
             )->addIndex(
                 $installer->getIdxName('oag_order_review', ['verified']),
                 ['verified']
-            )->addIndex(
-                $installer->getIdxName('oag_order_review', ['order_id', 'verified']),
-                ['order_id', 'verified']
             );
 
         $setup->getConnection()->createTable($table);

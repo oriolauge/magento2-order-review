@@ -63,12 +63,10 @@ class Cron
      */
     public function sendOrderReviewEmails()
     {
-            $this->helper->getLogger()->info("start");
         foreach ($this->getOrdersToSendEmail() as $order) {
             if (!$this->helper->getEmailConfig('enable_cronjob', $order->getStoreId())) {
                 continue;
             }
-            $this->helper->getLogger()->info($order->getIncrementId());
             $this->inlineTranslation->suspend();
 
             $template = $this->helper->getEmailConfig('email_template', $order->getStoreId());
@@ -122,7 +120,7 @@ class Cron
 
         $daysToWait = (int) $this->helper->getEmailConfig('order_waiting_days', null, \Magento\Framework\App\Config\ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
         if ($daysToWait > 0) {
-            $dateTo = $this->dateTime->date(null, '- ' . $daysToWait . ' days');
+            $dateTo = $this->dateTime->date(null, '-' . $daysToWait . ' days');
             $orderCollection->addAttributeToFilter('created_at', array('to'=>$dateTo));
         }
         return $orderCollection;
