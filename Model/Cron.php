@@ -51,12 +51,14 @@ class Cron
 
     /**
      * Function that send an email to order user to give the link to adds his reviews
-     * @todo: add some configurable values to stop cronjob
      * @return OAG\OrderReview\Model\Cron
      */
     public function sendOrderReviewEmails()
     {
         foreach ($this->getOrdersToSendEmail() as $order) {
+            if (!$this->helper->getEmailConfig('enable_cronjob', $order->getStoreId())) {
+                continue;
+            }
             $this->inlineTranslation->suspend();
 
             $template = $this->helper->getEmailConfig('email_template', $order->getStoreId());
