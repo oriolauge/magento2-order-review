@@ -12,4 +12,16 @@ class OrderReview extends AbstractModel
     {
         $this->_init('OAG\OrderReview\Model\ResourceModel\OrderReview');
     }
+
+    /**
+     * Load order review by order id
+     *
+     * @param string $orderId
+     * @return \OAG\OrderReview\Model\OrderReview
+     */
+    public function loadByOrderId($orderId)
+    {
+        $this->load($orderId, 'order_id');
+        return $this;
+    }
 }

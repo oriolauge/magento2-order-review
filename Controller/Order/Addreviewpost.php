@@ -90,6 +90,11 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
             if (!$this->modelOrder->getId()) {
                 throw new \Exception(__("Order does not exists"), 1);   
             }
+            $this->modelOrderReview->loadByOrderId($this->modelOrder->getId());
+            if ($this->modelOrderReview->getId()) {
+                throw new LocalizedException(__('Sorry, you have already sent us a review for this order.'));
+            }
+
             $this->modelOrderReview->setOrderId($this->modelOrder->getId());
             $this->modelOrderReview->setShipping((int) $params['shipping']);
             $this->modelOrderReview->setProduct((int) $params['product']);
@@ -102,7 +107,7 @@ class Addreviewpost extends \Magento\Contact\Controller\Index implements HttpPos
             $this->messageManager->addSuccessMessage(
                 __('Thanks for give us your opinion! :)')
             );
-        } catch (\LocalizedException $e) {
+        } catch (LocalizedException $e) {
             $this->messageManager->addError($e->getMessage());
         } catch (\Exception $e) {
             $this->messageManager->addError(__('An unspecified error occurred. Please contact us for assistance.'));
