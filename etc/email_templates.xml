@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:Magento:module:Magento_Email:etc/email_templates.xsd">
-    <template id="oag_order_review" label="OAG Irder Review" file="oag_order_review.html" type="html" module="OAG_OrderReview" area="frontend"/>
+    <template id="oag_orderreview_email_config_email_template" label="OAG Order Review" file="oag_order_review.html" type="html" module="OAG_OrderReview" area="frontend"/>
 </config>

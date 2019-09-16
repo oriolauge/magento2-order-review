@@ -8,7 +8,7 @@ class Data extends AbstractHelper
     /**
      * Holds email config path
      */
-    const EMAIL_CONFIG_PATH = 'oag_orderreview/email/';
+    const EMAIL_CONFIG_PATH = 'oag_orderreview/email_config/';
 
     /**
      * Holds secret salt string
