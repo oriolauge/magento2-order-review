@@ -23,6 +23,12 @@
             </argument>
         </argument>
     </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <paging name="listing_paging"/>
+    </listingToolbar>
     <columns name="spinner_columns">
         <selectionsColumn name="ids">
             <argument name="data" xsi:type="array">
@@ -32,14 +38,14 @@
                 </item>
             </argument>
         </selectionsColumn>
-        <column name="id">
+        <column name="id" sortOrder="10">
             <settings>
                 <filter>textRange</filter>
                 <label translate="true">ID</label>
                 <sorting>asc</sorting>
             </settings>
         </column>
-        <column name="order_id">
+        <column name="order_id" sortOrder="20">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -47,7 +53,32 @@
                 </item>
             </argument>
         </column>
-        <column name="verified">
+        <column name="shipping" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Shipping value</label>
+            </settings>
+        </column>
+        <column name="product" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product value</label>
+            </settings>
+        </column>
+        <column name="customer_support" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer support value</label>
+            </settings>
+        </column>
+        <column name="comment" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <label translate="true">Comment</label>
+            </settings>
+        </column>
+        <column name="verified" sortOrder="70">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">text</item>
@@ -58,62 +89,6 @@
                         </item>
                     </item>
                     <item name="label" xsi:type="string" translate="true">Is verified</item>
-                </item>
-            </argument>
-        </column>
-        <column name="shipping">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Shipping value</item>
-                </item>
-            </argument>
-        </column>
-        <column name="product">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Product value</item>
-                </item>
-            </argument>
-        </column>
-        <column name="customer_support">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Customer support value</item>
-                </item>
-            </argument>
-        </column>
-        <column name="comment">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Comment</item>
                 </item>
             </argument>
         </column>
