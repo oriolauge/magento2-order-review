@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="OAG_OrderReview::oag" title="OAG Modules" module="OAG_OrderReview" sortOrder="51" resource="OAG_OrderReview::oag"/>
+        <add id="OAG_OrderReview::oag_orderreview" title="Manage Order Reviews" module="OAG_OrderReview" sortOrder="10" action="oag_orderreview/orderreview" resource="OAG_OrderReview::oag_orderreview" parent="OAG_OrderReview::oag"/>
+        <add id="OAG_OrderReview::oag_orderreview_configuration" title="Configuration" module="OAG_OrderReview" sortOrder="99" parent="OAG_OrderReview::oag" action="adminhtml/system_config/edit/section/oag_orderreview" resource="OAG_OrderReview::order_review_config"/>
+    </menu>
+</config>
+

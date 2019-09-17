@@ -1,0 +1,15 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="oag_orderreview_orderreview_listing_data_source" xsi:type="string">OAG\OrderReview\Model\ResourceModel\OrderReview\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="OAG\OrderReview\Model\ResourceModel\OrderReview\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">oag_order_review</argument>
+            <argument name="resourceModel" xsi:type="string">OAG\OrderReview\Model\ResourceModel\OrderReview</argument>
+        </arguments>
+    </virtualType>
+</config>
