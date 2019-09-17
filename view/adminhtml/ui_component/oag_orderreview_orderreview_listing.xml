@@ -66,13 +66,11 @@
                 <sorting>asc</sorting>
             </settings>
         </column>
-        <column name="order_id" sortOrder="20">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">Order ID</item>
-                </item>
-            </argument>
+        <column name="order_id" sortOrder="10">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Order ID</label>
+            </settings>
         </column>
         <column name="shipping" sortOrder="30">
             <settings>
@@ -100,18 +98,11 @@
             </settings>
         </column>
         <column name="verified" sortOrder="70">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Is verified</item>
-                </item>
-            </argument>
+            <settings>
+                <options class="OAG\OrderReview\Model\OrderReview\Attribute\Source\Verified"/>
+                <filter>text</filter>
+                <label translate="true">Verified</label>
+            </settings>
         </column>
     </columns>
 </listing>
