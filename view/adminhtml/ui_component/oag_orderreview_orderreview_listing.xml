@@ -28,15 +28,36 @@
             <sticky>true</sticky>
         </settings>
         <paging name="listing_paging"/>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <action name="verified">
+                <settings>
+                    <type>status</type>
+                    <label translate="true">Change Verified</label>
+                    <actions>
+                        <action name="0">
+                            <type>enable</type>
+                            <label translate="true">Yes</label>
+                            <url path="oag_orderreview/orderreview/massVerified">
+                                <param name="verified">1</param>
+                            </url>
+                        </action>
+                        <action name="1">
+                            <type>disable</type>
+                            <label translate="true">No</label>
+                            <url path="oag_orderreview/orderreview/massVerified">
+                                <param name="verified">0</param>
+                            </url>
+                        </action>
+                    </actions>
+                </settings>
+            </action>
+        </massaction>
     </listingToolbar>
     <columns name="spinner_columns">
-        <selectionsColumn name="ids">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="resizeEnabled" xsi:type="boolean">false</item>
-                    <item name="indexField" xsi:type="string">id</item>
-                </item>
-            </argument>
+        <selectionsColumn name="ids" sortOrder="0">
+            <settings>
+                <indexField>id</indexField>
+            </settings>
         </selectionsColumn>
         <column name="id" sortOrder="10">
             <settings>
