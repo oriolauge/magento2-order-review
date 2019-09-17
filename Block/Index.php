@@ -23,11 +23,14 @@ class Index extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Get all orders reviews to show
+     * Get all orders reviews to show (verified = 1)
      * @return \OAG\OrderReview\Model\ResourceModel\OrderReview\Collection;
      */
     public function getOrderReviews()
     {
-        return $this->orderReviewFactory->create()->getCollection();
+        return $this->orderReviewFactory
+            ->create()
+            ->getCollection()
+            ->addFieldToFilter('verified', 1);
     }
 }
