@@ -15,10 +15,10 @@ To install this module, we used the next method:
 ```
 cd MAGENTO_ROOT_PATH
 cd app
-cd code (or mkdir app/code)
-mkdir code/OAG
-mkdir code/OAG/OrderReview
-cd code/OAG/OrderReview
+cd code (maybe you need to create the code folder with mkdir code command)
+mkdir OAG
+mkdir OAG/OrderReview
+cd OAG/OrderReview
 install this repository in your current path (app/code/OAG/OrderReview)
 ```
 After this commands, you will need to refresh your Magento's cache.
