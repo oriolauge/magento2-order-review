@@ -36,6 +36,12 @@ class Cron
     protected $dateTime;
 
     /**
+     * Holds Email Cronjob object class
+     * @var OAG\OrderReview\Model\EmailCronjob
+     */
+    protected $modelEmailCronjob;
+
+    /**
      * construct function class
      * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
      * @param \OAG\OrderReview\Helper                                    $helper
@@ -48,13 +54,15 @@ class Cron
         \OAG\OrderReview\Helper\Data $helper,
         \Magento\Framework\Stdlib\DateTime\DateTime $dateTime,
         \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
-        \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
+        \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
+        \OAG\OrderReview\Model\EmailCronjob $modelEmailCronjob
     ) {
         $this->orderCollectionFactory = $orderCollectionFactory;
         $this->helper = $helper;
         $this->inlineTranslation = $inlineTranslation;
         $this->transportBuilder = $transportBuilder;
         $this->dateTime = $dateTime;
+        $this->modelEmailCronjob = $modelEmailCronjob;
     }
 
     /**
@@ -90,9 +98,11 @@ class Cron
                 ->setFromByScope($sender)
                 ->addTo($order->getCustomerEmail())
                 ->getTransport();
-
             try {
                 $transport->sendMessage();
+                $this->modelEmailCronjob->loadByOrderId($order->getId());
+                $this->modelEmailCronjob->setSended(1);
+                $this->modelEmailCronjob->save();
             } catch (\Exception $exception) {
                 $this->helper->getLogger()->critical($exception->getMessage());
             }
@@ -106,23 +116,30 @@ class Cron
 
     /**
      * Get all orders that we need to send an email with the review link page
-     * @todo : get orders that we not send the email
      * @return  Magento\Sales\Model\ResourceModel\Order\Collection
      */
     protected function getOrdersToSendEmail()
     {
         $orderCollection = $this->orderCollectionFactory
             ->create()
+            ->addAttributeToSelect('entity_id')
             ->addAttributeToSelect('customer_email')
             ->addAttributeToSelect('customer_firstname')
             ->addAttributeToSelect('increment_id')
-            ->addAttributeToSelect('store_id');
+            ->addAttributeToSelect('store_id')
+            ->setPageSize($this->helper->getMaxEmailsToSend());
 
         $daysToWait = (int) $this->helper->getEmailConfig('order_waiting_days', null, \Magento\Framework\App\Config\ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
         if ($daysToWait > 0) {
             $dateTo = $this->dateTime->date(null, '-' . $daysToWait . ' days');
             $orderCollection->addAttributeToFilter('created_at', array('to'=>$dateTo));
         }
+
+        $orderCollection->getSelect()->join(
+            array('oag_order_review_email_cronjob'),
+            'main_table.entity_id = oag_order_review_email_cronjob.order_id AND oag_order_review_email_cronjob.sended = 0',
+            array()
+        );
         return $orderCollection;
 
     }

@@ -19,7 +19,7 @@ class InstallSchema implements InstallSchemaInterface
         /**
          * Create table 'greeting_message'
          */
-        $table = $setup->getConnection()
+        $oagOrderReviewTable = $setup->getConnection()
             ->newTable($setup->getTable('oag_order_review'))
             ->addColumn(
                 'id',
@@ -84,7 +84,50 @@ class InstallSchema implements InstallSchemaInterface
                 ['verified']
             );
 
-        $setup->getConnection()->createTable($table);
+        $setup->getConnection()->createTable($oagOrderReviewTable);
+
+        $oagOrderReviewEmailCronjobTable = $setup->getConnection()
+            ->newTable($setup->getTable('oag_order_review_email_cronjob'))
+            ->addColumn(
+                'id',
+                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                null,
+                ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
+                'Order review ID'
+            )->addColumn(
+                'order_id',
+                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                null,
+                ['unsigned' => true, 'nullable' => false],
+                'Order ID'
+            )->addColumn(
+                'sended',
+                \Magento\Framework\DB\Ddl\Table::TYPE_BOOLEAN,
+                null,
+                ['unsigned' => true, 'nullable' => false, 'default' => false],
+                'Was sended'
+            )->setComment("OAG Order review email cronjob table"
+            )->addForeignKey(
+                $installer->getFkName(
+                    'oag_order_review_email_cronjob',
+                    'order_id',
+                    'sales_order',
+                    'entity_id'
+                ),
+                'order_id',
+                $installer->getTable('sales_order'), 
+                'entity_id',
+                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+            )->addIndex(
+                $installer->getIdxName('oag_order_review_email_cronjob', ['order_id']),
+                ['order_id'],
+                ['type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE]
+            )->addIndex(
+                $installer->getIdxName('oag_order_review_email_cronjob', ['sended']),
+                ['sended']
+            );
+
+        $setup->getConnection()->createTable($oagOrderReviewEmailCronjobTable);
         $installer->endSetup();
     }
 }

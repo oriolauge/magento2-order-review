@@ -16,6 +16,11 @@ class Data extends AbstractHelper
     const SECRET_SALT = 'XWMR-oK.k5hU';
 
     /**
+     * Holds how many emails will send in every cronjob execution
+     */
+    const MAX_EMAILS_TO_SEND = 50;
+
+    /**
      * Holds encriptor object class
      * @var \Magento\Framework\Encryption\EncryptorInterface
      */
@@ -78,5 +83,14 @@ class Data extends AbstractHelper
     public function getToken($string)
     {
         return $this->encryptor->getHash(gzcompress($string . self::SECRET_SALT));
+    }
+
+    /**
+     * Get max emails to send number
+     * @return int
+     */
+    public function getMaxEmailsToSend()
+    {
+        return self::MAX_EMAILS_TO_SEND;
     }
 }
