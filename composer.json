@@ -1,8 +1,8 @@
 {
-    "name": "oriolauge/magento-oag-order-reviews",
+    "name": "oriolauge/magento-2-order-reviews",
     "description": "OAG Magento 2 extension that adds a new option to add a order review ",
     "type": "magento2-module",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
