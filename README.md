@@ -27,8 +27,7 @@ Also, you can use composer.json to install this repository. However, this kind o
 
 ## Cronjob
 This module has a cronjob that sends the emails to the customers. Even so, if you want to execute the cronjobs manually, you can use the next command:
-cd MAGENTO_ROOT_PATH
-
 ```
+cd MAGENTO_ROOT_PATH
 php bin/magento cron:run --group oag_order_review
 ```
