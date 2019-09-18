@@ -10,7 +10,7 @@ This module adds the next feature: A customer, X days after creating a sales' or
 
 All reviews are saved in a database table that the Magento admin user needs to moderate in order to decide if the review is verified to show or not in https://your_website_name/reviews. This moderation should be done in the magento backoffice.
 
-# Install
+## Install
 To install this module, we used the next method:
 ```
 cd MAGENTO_ROOT_PATH
@@ -25,7 +25,7 @@ After this commands, you will need to refresh your Magento's cache.
 
 Also, you can use composer.json to install this repository. However, this kind of installation was not tested so maybe it has some error that needs to be fixed.
 
-# Cronjob
+## Cronjob
 This module has a cronjob that sends the emails to the customers. Even so, if you want to execute the cronjobs manually, you can use the next command:
 cd MAGENTO_ROOT_PATH
 
