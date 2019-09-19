@@ -32,7 +32,6 @@ class SalesModelServiceQuoteSubmitSuccess implements \Magento\Framework\Event\Ob
     {
         $order = $observer->getEvent()->getOrder();
         $this->modelEmailCronjob->setOrderId($order->getId());
-        $this->modelEmailCronjob->setSended(false);
         $this->modelEmailCronjob->save();
         return $this;
     }

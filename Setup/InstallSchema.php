@@ -100,12 +100,6 @@ class InstallSchema implements InstallSchemaInterface
                 null,
                 ['unsigned' => true, 'nullable' => false],
                 'Order ID'
-            )->addColumn(
-                'sended',
-                \Magento\Framework\DB\Ddl\Table::TYPE_BOOLEAN,
-                null,
-                ['unsigned' => true, 'nullable' => false, 'default' => false],
-                'Was sended'
             )->setComment("OAG Order review email cronjob table"
             )->addForeignKey(
                 $installer->getFkName(
@@ -122,9 +116,6 @@ class InstallSchema implements InstallSchemaInterface
                 $installer->getIdxName('oag_order_review_email_cronjob', ['order_id']),
                 ['order_id'],
                 ['type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE]
-            )->addIndex(
-                $installer->getIdxName('oag_order_review_email_cronjob', ['sended']),
-                ['sended']
             );
 
         $setup->getConnection()->createTable($oagOrderReviewEmailCronjobTable);

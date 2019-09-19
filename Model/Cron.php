@@ -66,7 +66,9 @@ class Cron
     }
 
     /**
-     * Function that send an email to order user to give the link to adds his reviews
+     * Function that send an email to order user to give the link to adds his reviews.
+     * Also, we will remove the order ID from our email cronjob table to avoid to resend
+     * the review email again
      * @return OAG\OrderReview\Model\Cron
      */
     public function sendOrderReviewEmails()
@@ -101,8 +103,10 @@ class Cron
             try {
                 $transport->sendMessage();
                 $this->modelEmailCronjob->loadByOrderId($order->getId());
-                $this->modelEmailCronjob->setSended(1);
-                $this->modelEmailCronjob->save();
+                //Only to be sure that we load the object correctly
+                if($this->modelEmailCronjob->getId()) {
+                    $this->modelEmailCronjob->delete();
+                }
             } catch (\Exception $exception) {
                 $this->helper->getLogger()->critical($exception->getMessage());
             }
@@ -137,7 +141,7 @@ class Cron
 
         $orderCollection->getSelect()->join(
             array('oag_order_review_email_cronjob'),
-            'main_table.entity_id = oag_order_review_email_cronjob.order_id AND oag_order_review_email_cronjob.sended = 0',
+            'main_table.entity_id = oag_order_review_email_cronjob.order_id',
             array()
         );
         return $orderCollection;
