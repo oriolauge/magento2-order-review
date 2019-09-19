@@ -10,6 +10,11 @@ This module adds the next feature: A customer, X days after creating a sales' or
 
 All reviews are saved in a database table that the Magento admin user needs to moderate in order to decide if the review is verified to show or not in https://your_website_name/reviews. This moderation should be done in the magento backoffice.
 
+## Technologies
+This module was created with:
+* Magento 2.3.2 CE
+* PHP 7.2
+
 ## Install
 To install this module, we used the next method:
 ```
@@ -19,9 +24,9 @@ cd code (maybe you need to create the code folder with mkdir code command)
 mkdir OAG
 mkdir OAG/OrderReview
 cd OAG/OrderReview
-install this repository in your current path (app/code/OAG/OrderReview)
+drop this repository in your current path (app/code/OAG/OrderReview)
 ```
-After this commands, you will need to refresh your Magento's cache.
+After this commands, you will need to install the module and refresh your Magento's cache.
 
 Also, you can use composer.json to install this repository. However, this kind of installation was not tested so maybe it has some error that needs to be fixed.
 
