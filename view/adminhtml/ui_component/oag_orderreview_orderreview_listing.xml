@@ -97,10 +97,11 @@
                 <label translate="true">Comment</label>
             </settings>
         </column>
-        <column name="verified" sortOrder="70">
+        <column name="verified" sortOrder="70" component="Magento_Ui/js/grid/columns/select">
             <settings>
                 <options class="OAG\OrderReview\Model\OrderReview\Attribute\Source\Verified"/>
-                <filter>text</filter>
+                <filter>select</filter>
+                <dataType>select</dataType>
                 <label translate="true">Verified</label>
             </settings>
         </column>

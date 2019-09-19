@@ -26,7 +26,7 @@ mkdir OAG/OrderReview
 cd OAG/OrderReview
 drop this repository in your current path (app/code/OAG/OrderReview)
 ```
-After this commands, you will need to install the module and refresh your Magento's cache.
+After this commands, you will need to install the module with the following command: `php bin/magento setup:upgrade`.
 
 Also, you can use composer.json to install this repository. However, this kind of installation was not tested so maybe it has some error that needs to be fixed.
 
