@@ -11,11 +11,6 @@ class Data extends AbstractHelper
     const EMAIL_CONFIG_PATH = 'oag_orderreview/email_config/';
 
     /**
-     * Holds secret salt string
-     */
-    const SECRET_SALT = 'XWMR-oK.k5hU';
-
-    /**
      * Holds how many emails will send in every cronjob execution
      */
     const MAX_EMAILS_TO_SEND = 50;
@@ -82,7 +77,18 @@ class Data extends AbstractHelper
      */
     public function getToken($string)
     {
-        return $this->encryptor->getHash(gzcompress($string . self::SECRET_SALT));
+        return $this->encryptor->getHash($string);
+    }
+
+    /**
+     * Validate if the string and hash are valids
+     * @param  string  $string
+     * @param  string  $hash
+     * @return boolean
+     */
+    public function isValidHash($string, $hash)
+    {
+        return $this->encryptor->isValidHash($string, $hash);
     }
 
     /**

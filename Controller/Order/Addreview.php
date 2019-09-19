@@ -36,7 +36,7 @@ class Addreview extends \Magento\Framework\App\Action\Action
     {
         $token = $this->getRequest()->getParam('token');
         $incrementId = $this->getRequest()->getParam('increment_id');
-        if ($token != $this->helper->getToken($incrementId)) {
+        if (!$this->helper->isValidHash($incrementId, $token)) {
             $norouteUrl = $this->helper->getUrl('noroute');
             $this->getResponse()->setRedirect($norouteUrl);
             return;
